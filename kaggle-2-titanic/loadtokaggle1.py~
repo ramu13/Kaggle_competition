@@ -1,0 +1,25 @@
+import pandas as pd
+df = pd.read_csv('train.csv')
+print(df.head())
+#print(df.insull().sum())
+
+df['Age'].fillna(df['Age'].median(),inplace=True)
+#df.drop("Column",axis=1) df.drop(List) でそれぞれ列もしくは行の削除
+del df['Cabin']
+print(df)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.countplot(x = df['Pclass'],hue=df["Survived"])
+plt.show()
+
+import numpy as np
+edge = np.arange(0,100,10)
+print(edge)
+plt.hist(
+    (df[df['Survived']==0]['Age'],df[df['Survived']==1]['Age']),
+    histtype='barstacked',
+    bins=edge,
+    label=[0,1])
+plt.legend(title='Survived')
+plt.show()
